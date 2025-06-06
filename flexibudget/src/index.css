@@ -2,10 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  @apply min-h-screen bg-gray-50 text-gray-800 font-sans antialiased scroll-smooth;
-}
-body.dark {
-  @apply bg-gray-900;
+@layer base {
+  body {
+    margin: 0;
+    @apply min-h-screen bg-gray-50 text-gray-800 font-sans antialiased scroll-smooth;
+  }
+
+  body.dark {
+    @apply bg-gray-900;
+  }
 }
