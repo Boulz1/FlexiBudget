@@ -1,11 +1,15 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+type Theme = 'light' | 'dark'
+
 interface SettingsState {
-  currency: string;
-  dateFormat: string;
-  setCurrency: (currency: string) => void;
-  setDateFormat: (format: string) => void;
+  currency: string
+  dateFormat: string
+  theme: Theme
+  setCurrency: (currency: string) => void
+  setDateFormat: (format: string) => void
+  setTheme: (theme: Theme) => void
 }
 
 export const useSettingsStore = create<SettingsState>()(
@@ -13,8 +17,10 @@ export const useSettingsStore = create<SettingsState>()(
     (set) => ({
       currency: 'EUR',
       dateFormat: 'dd/MM/yyyy',
+      theme: 'light',
       setCurrency: (currency) => set({ currency }),
       setDateFormat: (dateFormat) => set({ dateFormat }),
+      setTheme: (theme) => set({ theme }),
     }),
     { name: 'settings' }
   )
