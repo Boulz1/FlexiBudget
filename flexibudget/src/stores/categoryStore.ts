@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Category } from '../types/Category';
+import type { Category } from '../types/Category';
 import { v4 as uuidv4 } from 'uuid';
 import { useTransactionStore } from './transactionStore';
 

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { transactionSchema, TransactionFormData } from './transactionSchema';
+import { transactionSchema } from './transactionSchema';
+import type { TransactionFormData } from './transactionSchema';
 import { useTransactionStore } from '../../stores/transactionStore';
 import { useCategoryStore } from '../../stores/categoryStore';
-import { Category } from '../../types/Category';
-import { Transaction } from '../../types/Transaction';
+import type { Category } from '../../types/Category';
+import type { Transaction } from '../../types/Transaction';
 import { Link } from 'react-router-dom';
 
 interface TransactionFormProps {

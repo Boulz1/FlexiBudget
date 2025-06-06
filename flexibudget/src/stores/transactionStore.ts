@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { Transaction } from '../types/Transaction';
+import type { Transaction } from '../types/Transaction';
 import { v4 as uuidv4 } from 'uuid'; // Use uuid to generate unique transaction IDs
 
 interface TransactionState {

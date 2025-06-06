@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CategoryForm from '../components/categories/CategoryForm';
 import CategoryList from '../components/categories/CategoryList';
-import { Category } from '../types/Category'; // Importer Category
+import type { Category } from '../types/Category'; // Importer Category
 
 const CategoriesPage: React.FC = () => {
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);

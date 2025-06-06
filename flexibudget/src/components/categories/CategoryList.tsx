@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCategoryStore } from '../../stores/categoryStore';
 import { useTransactionStore } from '../../stores/transactionStore';
-import { Category } from '../../types/Category';
+import type { Category } from '../../types/Category';
 import { useCurrencyFormatter } from '../../utils/format';
 
 interface CategoryListProps {
