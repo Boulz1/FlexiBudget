@@ -16,10 +16,8 @@ interface TransactionFormProps {
 }
 
 const TransactionForm: React.FC<TransactionFormProps> = ({ transactionToEdit, onFormClose }) => {
-  const { addTransaction, updateTransaction } = useTransactionStore((state) => ({
-     addTransaction: state.addTransaction,
-     updateTransaction: state.updateTransaction,
-  }));
+  const addTransaction = useTransactionStore(state => state.addTransaction);
+  const updateTransaction = useTransactionStore(state => state.updateTransaction);
   const allCategories = useCategoryStore((state) => state.categories);
  
   const { register, handleSubmit, formState: { errors }, reset, watch, setValue } = useForm<TransactionFormData>({

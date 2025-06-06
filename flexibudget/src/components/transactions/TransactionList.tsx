@@ -10,10 +10,8 @@ interface TransactionListProps {
 }
 
 const TransactionList: React.FC<TransactionListProps> = ({ onEditTransaction }) => {
-  const { transactions, deleteTransaction } = useTransactionStore((state) => ({
-    transactions: state.transactions,
-    deleteTransaction: state.deleteTransaction,
-  }));
+  const transactions = useTransactionStore(state => state.transactions);
+  const deleteTransaction = useTransactionStore(state => state.deleteTransaction);
   const getCategoryById = useCategoryStore((state) => state.getCategoryById);
   const dateFormat = useSettingsStore(state => state.dateFormat);
   const formatCurrency = useCurrencyFormatter();

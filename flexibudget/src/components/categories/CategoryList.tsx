@@ -9,10 +9,8 @@ interface CategoryListProps {
 }
 
 const CategoryList: React.FC<CategoryListProps> = ({ onEditCategory }) => {
-  const { categories, deleteCategory } = useCategoryStore((state) => ({
-     categories: state.categories,
-     deleteCategory: state.deleteCategory,
-  }));
+  const categories = useCategoryStore(state => state.categories);
+  const deleteCategory = useCategoryStore(state => state.deleteCategory);
   const transactions = useTransactionStore((state) => state.transactions);
   const formatCurrency = useCurrencyFormatter();
 
