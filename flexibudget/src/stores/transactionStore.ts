@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { Transaction } from '../types/Transaction';
-import { v4 as uuidv4 } from 'uuid'; // Make sure to install uuid: npm install uuid && npm install --save-dev @types/uuid
+import { v4 as uuidv4 } from 'uuid'; // Use uuid to generate unique transaction IDs
 
 interface TransactionState {
   transactions: Transaction[];
