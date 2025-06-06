@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useSettingsStore } from '../stores/settingsStore';
 
 const SettingsPage: React.FC = () => {
-  const { currency, dateFormat, setCurrency, setDateFormat } = useSettingsStore();
+  const currency = useSettingsStore(state => state.currency);
+  const dateFormat = useSettingsStore(state => state.dateFormat);
+  const setCurrency = useSettingsStore(state => state.setCurrency);
+  const setDateFormat = useSettingsStore(state => state.setDateFormat);
   const [currencyValue, setCurrencyValue] = useState(currency);
   const [dateFormatValue, setDateFormatValue] = useState(dateFormat);
 

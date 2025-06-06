@@ -12,9 +12,7 @@ ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarEle
 
 const DashboardPage: React.FC = () => {
   const transactions = useTransactionStore((state) => state.transactions);
-  const { getCategoryById } = useCategoryStore((state) => ({
-     getCategoryById: state.getCategoryById,
-  }));
+  const getCategoryById = useCategoryStore(state => state.getCategoryById);
   const currency = useSettingsStore(state => state.currency);
   const formatCurrency = useCurrencyFormatter();
 

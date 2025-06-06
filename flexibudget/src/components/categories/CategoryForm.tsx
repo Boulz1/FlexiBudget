@@ -13,10 +13,8 @@ interface CategoryFormProps {
 }
 
 const CategoryForm: React.FC<CategoryFormProps> = ({ categoryToEdit, onFormClose }) => {
-  const { addCategory, updateCategory } = useCategoryStore(state => ({
-     addCategory: state.addCategory,
-     updateCategory: state.updateCategory
-  }));
+  const addCategory = useCategoryStore(state => state.addCategory);
+  const updateCategory = useCategoryStore(state => state.updateCategory);
   
   const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm<CategoryFormData>({
     resolver: zodResolver(categorySchema),
