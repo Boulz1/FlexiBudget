@@ -1,8 +1,13 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom'; // useLocation pour le lien actif
+import React from 'react'
+import { Link, useLocation } from 'react-router-dom' // useLocation pour le lien actif
+import { useSettingsStore } from '../stores/settingsStore'
 
 const NavigationBar: React.FC = () => {
   const location = useLocation();
+  const theme = useSettingsStore((state) => state.theme)
+  const setTheme = useSettingsStore((state) => state.setTheme)
+
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light')
 
   const linkClasses = (path: string) => 
     `px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 ease-in-out ${
@@ -47,6 +52,12 @@ const NavigationBar: React.FC = () => {
               <Link to="/settings" className={linkClasses('/settings')}>
                 Paramètres
               </Link>
+              <button
+                onClick={toggleTheme}
+                className="px-3 py-2 rounded-md text-sm font-medium text-indigo-100 hover:bg-indigo-500 hover:text-white focus:outline-none"
+              >
+                {theme === 'light' ? '🌙' : '☀️'}
+              </button>
             </div>
           </div>
           {/* Bouton Menu Mobile */}
@@ -81,6 +92,15 @@ const NavigationBar: React.FC = () => {
             <Link to="/transactions" className={mobileLinkClasses('/transactions')} onClick={() => setIsMobileMenuOpen(false)}>Transactions</Link>
             <Link to="/categories" className={mobileLinkClasses('/categories')} onClick={() => setIsMobileMenuOpen(false)}>Catégories</Link>
             <Link to="/settings" className={mobileLinkClasses('/settings')} onClick={() => setIsMobileMenuOpen(false)}>Paramètres</Link>
+            <button
+              onClick={() => {
+                toggleTheme()
+                setIsMobileMenuOpen(false)
+              }}
+              className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-indigo-100 hover:bg-indigo-500 hover:text-white focus:outline-none"
+            >
+              {theme === 'light' ? 'Mode sombre' : 'Mode clair'}
+            </button>
           </div>
         </div>
       )}

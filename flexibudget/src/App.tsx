@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import DashboardPage from './pages/DashboardPage';
 import TransactionsPage from './pages/TransactionsPage';
 import CategoriesPage from './pages/CategoriesPage';
 import SettingsPage from './pages/SettingsPage'; // Importer la nouvelle page
-import './index.css'; 
+import './index.css'
+import { useSettingsStore } from './stores/settingsStore'
 
 const App: React.FC = () => {
+  const theme = useSettingsStore((state) => state.theme)
+
+  useEffect(() => {
+    document.body.classList.toggle('dark', theme === 'dark')
+  }, [theme])
+
   return (
     <Router>
       {/* Utilisation des classes de ma version précédente pour le style général */}
