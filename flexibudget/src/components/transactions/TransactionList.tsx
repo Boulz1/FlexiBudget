@@ -2,6 +2,8 @@ import React from 'react';
 import { useTransactionStore } from '../../stores/transactionStore';
 import { useCategoryStore } from '../../stores/categoryStore';
 import { Transaction } from '../../types/Transaction';
+import { useSettingsStore } from '../../stores/settingsStore';
+import { useCurrencyFormatter } from '../../utils/format';
 
 interface TransactionListProps {
   onEditTransaction: (transaction: Transaction) => void;
@@ -13,6 +15,23 @@ const TransactionList: React.FC<TransactionListProps> = ({ onEditTransaction }) 
     deleteTransaction: state.deleteTransaction,
   }));
   const getCategoryById = useCategoryStore((state) => state.getCategoryById);
+  const dateFormat = useSettingsStore(state => state.dateFormat);
+  const formatCurrency = useCurrencyFormatter();
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const yyyy = date.getFullYear();
+    const mm = (date.getMonth() + 1).toString().padStart(2, '0');
+    const dd = date.getDate().toString().padStart(2, '0');
+    switch (dateFormat) {
+      case 'MM/dd/yyyy':
+        return `${mm}/${dd}/${yyyy}`;
+      case 'yyyy-MM-dd':
+        return `${yyyy}-${mm}-${dd}`;
+      default:
+        return `${dd}/${mm}/${yyyy}`;
+    }
+  };
 
   if (transactions.length === 0) {
     return (
@@ -40,12 +59,12 @@ const TransactionList: React.FC<TransactionListProps> = ({ onEditTransaction }) 
                     {category?.name || <span className="text-gray-500 italic">Non Catégorisé</span>}
                   </p>
                   <p className="text-xs text-gray-500 mt-1">
-                    Date: {new Date(transaction.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+                    Date: {formatDate(transaction.date)}
                   </p>
                 </div>
                 <div className="flex-shrink-0 ml-4 text-right">
                    <p className={`text-xl font-bold mb-2 ${transaction.type === 'income' ? 'text-green-700' : 'text-red-700'}`}>
-                     {transaction.type === 'income' ? '+' : '-'}{transaction.amount.toFixed(2)} €
+                     {transaction.type === 'income' ? '+' : '-'}{formatCurrency(transaction.amount)}
                    </p>
                    <div className="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0">
                     <button 

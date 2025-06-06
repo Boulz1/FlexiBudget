@@ -3,6 +3,8 @@ import { Doughnut, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
 import { useTransactionStore } from '../stores/transactionStore';
 import { useCategoryStore } from '../stores/categoryStore';
+import { useSettingsStore } from '../stores/settingsStore';
+import { useCurrencyFormatter } from '../utils/format';
 // Pas besoin d'importer Transaction ici car nous ne l'utilisons pas directement comme type de prop
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title);
@@ -12,6 +14,8 @@ const DashboardPage: React.FC = () => {
   const { getCategoryById } = useCategoryStore((state) => ({
      getCategoryById: state.getCategoryById,
   }));
+  const currency = useSettingsStore(state => state.currency);
+  const formatCurrency = useCurrencyFormatter();
 
   const expenseTransactions = transactions.filter(t => t.type === 'expense');
   const expenseByCategory: { [key: string]: number } = {};
@@ -68,7 +72,7 @@ const DashboardPage: React.FC = () => {
                          label += ': ';
                      }
                      if (context.parsed !== null) {
-                         label += new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(context.parsed);
+                         label += new Intl.NumberFormat('fr-FR', { style: 'currency', currency }).format(context.parsed);
                      }
                      return label;
                  }
@@ -116,24 +120,24 @@ const DashboardPage: React.FC = () => {
          tooltip: {
              callbacks: {
                  label: function(context: any) {
-                     return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(context.parsed.y);
+                     return new Intl.NumberFormat('fr-FR', { style: 'currency', currency }).format(context.parsed.y);
                  }
              }
          }
      },
      scales: {
-         y: { beginAtZero: true, ticks: { callback: value => `${value}€` } },
+         y: { beginAtZero: true, ticks: { callback: value => new Intl.NumberFormat('fr-FR', { style: 'currency', currency }).format(Number(value)) } },
          x: { grid: { display: false } }
      }
   };
   
   const balance = totalIncome - totalExpenses;
 
-  const SummaryCard: React.FC<{title: string, amount: number, colorClass: string, children?: React.ReactNode}> = 
-    ({ title, amount, colorClass, children }) => (
+const SummaryCard: React.FC<{title: string, amount: number, colorClass: string, children?: React.ReactNode}> =
+  ({ title, amount, colorClass, children }) => (
     <div className={`p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-2xl ${colorClass}`}>
       <h2 className="text-lg font-semibold text-white mb-1">{title}</h2>
-      <p className="text-3xl font-bold text-white">{amount.toFixed(2)} €</p>
+      <p className="text-3xl font-bold text-white">{formatCurrency(amount)}</p>
       {children}
     </div>
   );

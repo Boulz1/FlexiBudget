@@ -2,6 +2,7 @@ import React from 'react';
 import { useCategoryStore } from '../../stores/categoryStore';
 import { useTransactionStore } from '../../stores/transactionStore';
 import { Category } from '../../types/Category';
+import { useCurrencyFormatter } from '../../utils/format';
 
 interface CategoryListProps {
   onEditCategory: (category: Category) => void;
@@ -13,6 +14,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ onEditCategory }) => {
      deleteCategory: state.deleteCategory,
   }));
   const transactions = useTransactionStore((state) => state.transactions);
+  const formatCurrency = useCurrencyFormatter();
 
   const getCategoryExpenses = (categoryId: string): number => {
      return transactions
@@ -59,8 +61,8 @@ const CategoryList: React.FC<CategoryListProps> = ({ onEditCategory }) => {
              {category.type === 'expense' && category.budget !== undefined && category.budget > 0 && (
                  <div>
                      <div className="flex justify-between text-sm text-gray-600 mb-1">
-                         <span>Dépensé: {spent.toFixed(2)}€</span>
-                         <span>Budget: {budget.toFixed(2)}€</span>
+                         <span>Dépensé: {formatCurrency(spent)}</span>
+                         <span>Budget: {formatCurrency(budget)}</span>
                      </div>
                      <div className="w-full bg-gray-200 rounded-full h-2.5">
                          <div 
@@ -70,7 +72,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ onEditCategory }) => {
                      </div>
                      {progress > 100 && (
                          <p className="text-xs text-red-600 mt-1 text-right">
-                             Dépassement de {(spent - budget).toFixed(2)}€ ({(progress - 100).toFixed(1)}%)
+                             Dépassement de {formatCurrency(spent - budget)} ({(progress - 100).toFixed(1)}%)
                          </p>
                      )}
                  </div>
