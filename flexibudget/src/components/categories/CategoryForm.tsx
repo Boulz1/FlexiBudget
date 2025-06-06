@@ -52,7 +52,8 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ categoryToEdit, onFormClose
     if (data.type === 'expense' && data.budget !== undefined && data.budget > 0) {
       dataToSubmit.budget = data.budget;
     } else {
-      dataToSubmit.budget = undefined; // Assurez-vous que le budget est undefined si non applicable
+      // Assurez-vous que le budget est undefined si non applicable
+      dataToSubmit.budget = undefined;
     }
 
     if (categoryToEdit) {
