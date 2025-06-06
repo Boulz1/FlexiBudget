@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { categorySchema, CategoryFormData } from './categorySchema';
+import { categorySchema } from './categorySchema';
+import type { CategoryFormData } from './categorySchema';
 import { useCategoryStore } from '../../stores/categoryStore';
-import { Category } from '../../types/Category';
+import type { Category } from '../../types/Category';
 
 interface CategoryFormProps {
   categoryToEdit?: Category | null;

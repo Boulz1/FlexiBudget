@@ -1,6 +1,7 @@
 import React from 'react';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
+import type { TooltipItem } from 'chart.js';
 import { useTransactionStore } from '../stores/transactionStore';
 import { useCategoryStore } from '../stores/categoryStore';
 // Pas besoin d'importer Transaction ici car nous ne l'utilisons pas directement comme type de prop
@@ -62,7 +63,7 @@ const DashboardPage: React.FC = () => {
          },
          tooltip: {
              callbacks: {
-                 label: function(context: any) {
+                 label: function(context: TooltipItem<'doughnut'>) {
                      let label = context.label || '';
                      if (label) {
                          label += ': ';
@@ -115,7 +116,7 @@ const DashboardPage: React.FC = () => {
          },
          tooltip: {
              callbacks: {
-                 label: function(context: any) {
+                   label: function(context: TooltipItem<'bar'>) {
                      return new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(context.parsed.y);
                  }
              }

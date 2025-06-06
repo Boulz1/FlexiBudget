@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTransactionStore } from '../../stores/transactionStore';
 import { useCategoryStore } from '../../stores/categoryStore';
-import { Transaction } from '../../types/Transaction';
+import type { Transaction } from '../../types/Transaction';
 
 interface TransactionListProps {
   onEditTransaction: (transaction: Transaction) => void;

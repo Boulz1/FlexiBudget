@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TransactionForm from '../components/transactions/TransactionForm';
 import TransactionList from '../components/transactions/TransactionList';
-import { Transaction } from '../types/Transaction'; // Importer Transaction
+import type { Transaction } from '../types/Transaction'; // Importer Transaction
 
 const TransactionsPage: React.FC = () => {
   const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
