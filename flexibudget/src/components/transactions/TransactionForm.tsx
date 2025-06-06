@@ -6,6 +6,7 @@ import { useTransactionStore } from '../../stores/transactionStore';
 import { useCategoryStore } from '../../stores/categoryStore';
 import { Category } from '../../types/Category';
 import { Transaction } from '../../types/Transaction';
+import { Link } from 'react-router-dom';
 
 interface TransactionFormProps {
   transactionToEdit?: Transaction | null;
